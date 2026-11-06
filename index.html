@@ -1,0 +1,142 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>MyExpense</title>
+<meta name="theme-color" content="#0d2233"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{--bg:#e8edf0;--ink:#0d2233;--panel:#0d2233;--mut:#5d7080;--line:#c9d3da;--card:#f5f8fa;--bbm:#ff5a1f;--lst:#2f55ff;color-scheme:light}
+@media(prefers-color-scheme:dark){:root{--bg:#09141d;--ink:#e6edf2;--panel:#12293b;--mut:#8fa4b3;--line:#22384a;--card:#0f2030;color-scheme:dark}}
+*{box-sizing:border-box;margin:0}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.45 'Bricolage Grotesque',system-ui,sans-serif;padding:env(safe-area-inset-top,0px) 0 calc(76px + env(safe-area-inset-bottom,0px))}
+button,input,select{font:inherit;color:inherit}[hidden]{display:none!important}
+.wrap{max-width:880px;margin:auto;padding:16px}
+#login{min-height:100vh;display:grid;place-items:center;padding:20px}
+#login form{width:min(380px,100%)}
+#login h1{font-size:clamp(3.4rem,17vw,5.5rem);font-weight:800;line-height:.88;letter-spacing:-.045em}
+#login h1 i{font-style:normal;color:var(--bbm)}#login h1 b{color:var(--lst)}
+#login p{color:var(--mut);margin:14px 0 22px}
+input,select{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);margin-top:6px}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--lst);outline-offset:2px}
+label{display:block;font-size:.85rem;color:var(--mut);margin-top:12px}
+.btn{border:0;border-radius:10px;padding:13px 18px;background:var(--ink);color:var(--bg);font-weight:600;cursor:pointer;margin-top:16px}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:6px 0 14px}
+.top b{font-size:1.35rem;letter-spacing:-.03em}.top button{margin:0;padding:8px 12px;font-size:.85rem}
+.panel{background:var(--panel);color:#e6edf2;border-radius:28px 28px 8px 28px;padding:22px 18px 18px;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.panel h2{grid-column:1/-1;font-size:.9rem;font-weight:400;color:#8fa4b3;margin-bottom:4px}
+.g{text-align:center}.g svg{width:100%;max-width:230px}
+.g strong{display:block;font-size:clamp(1.8rem,8vw,2.8rem);font-weight:800;letter-spacing:-.04em;line-height:1;margin-top:-34px}
+.g small{display:block;color:#8fa4b3;font-size:.82rem;margin-top:6px}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mini div{background:var(--card);border-left:6px solid var(--bbm);padding:12px 14px;border-radius:4px 14px 14px 4px}
+.mini div+div{border-color:var(--lst)}.mini span{font-size:.8rem;color:var(--mut)}.mini b{display:block;font-size:1.25rem;letter-spacing:-.02em}
+h3{font-size:1.05rem;margin:22px 0 8px}
+.chart{background:var(--card);border-radius:14px;padding:12px;overflow-x:auto}.chart svg{width:100%;min-width:300px}
+.legend{font-size:.8rem;color:var(--mut);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 4px 0 10px}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.dot{width:12px;height:12px;border-radius:50%}.row small{color:var(--mut);display:block}.row .r{text-align:right}
+.row button{background:none;border:0;color:var(--mut);cursor:pointer;padding:2px 6px;text-decoration:underline;font-size:.8rem}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.seg button{margin:0;padding:14px}.seg .on.b{background:var(--bbm);color:#fff;border-color:var(--bbm)}.seg .on.l{background:var(--lst);color:#fff;border-color:var(--lst)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.calc{color:var(--mut);font-size:.9rem;margin-top:10px;min-height:1.4em}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--mut);font-weight:600}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line)}
+nav button{flex:1;max-width:200px;padding:12px;border:0;border-radius:12px;background:none;font-weight:600;color:var(--mut);cursor:pointer}nav .on{background:var(--ink);color:var(--bg)}
+.empty{color:var(--mut);padding:18px 0}.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:.9rem}
+@media(prefers-reduced-motion:no-preference){.g path.v{transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}}
+dialog{border:0;border-radius:20px;padding:20px;width:min(420px,92vw);max-height:90vh;background:var(--bg);color:var(--ink)}dialog::backdrop{background:#0d2233cc}dialog h4{margin:20px 0 0;font-size:.95rem}dialog .btn{margin-top:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}.chip{border:2px solid var(--line);background:none;border-radius:99px;padding:6px 12px;cursor:pointer}.err{color:#d6361f;min-height:1.2em;margin-top:8px;font-size:.9rem}
+</style></head><body>
+<section id="login"><form id="lf"><h1>My<br><i>Expense</i> <b>⚡</b></h1><p>Catat bensin dan token listrik, lihat berapa liter per km dan kWh per hari. Data tersimpan di perangkat ini.</p><label>Username<input id="un" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_.\-]+" autocomplete="username" placeholder="mis. budi_01"></label><label>PIN <span id="ph" style="color:var(--mut)">(opsional untuk akun baru, 4–6 angka)</span><input id="pn" type="password" inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" autocomplete="current-password"></label><p class="err" id="er" role="alert"></p><button class="btn" style="width:100%;margin-top:6px">Masuk</button><div class="chips" id="rc"></div><p style="font-size:.8rem;margin:12px 0 0">Username baru otomatis dibuat. Pasang PIN agar data terkunci.</p></form></section>
+<div id="app" hidden><div class="wrap">
+<div class="top"><b>MyExpense</b><span><button class="btn alt" id="acc">👤 <span id="who"></span></button></span></div>
+<main>
+<section id="v-dash"><div class="panel"><h2 id="pt"></h2>
+<div class="g"><svg viewBox="0 0 200 120"><path d="M20 105A80 80 0 0 1 180 105" fill="none" stroke="#25405a" stroke-width="16" stroke-linecap="round"/><path class="v" id="a1" d="M20 105A80 80 0 0 1 180 105" fill="none" stroke="#ff5a1f" stroke-width="16" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><strong id="g1">–</strong><small>liter per km<br><span id="g1b"></span></small></div>
+<div class="g"><svg viewBox="0 0 200 120"><path d="M20 105A80 80 0 0 1 180 105" fill="none" stroke="#25405a" stroke-width="16" stroke-linecap="round"/><path class="v" id="a2" d="M20 105A80 80 0 0 1 180 105" fill="none" stroke="#4a6bff" stroke-width="16" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><strong id="g2">–</strong><small>kWh per hari<br><span id="g2b"></span></small></div></div>
+<div class="mini"><div><span>Bensin bulan ini</span><b id="m1"></b></div><div><span>Listrik bulan ini</span><b id="m2"></b></div><div><span>kWh dibeli bulan ini</span><b id="m3"></b></div><div><span>Estimasi kWh per bulan</span><b id="m4"></b></div></div>
+<h3>Pengeluaran 6 bulan terakhir</h3><div class="chart" id="ch"></div><p class="legend"><i style="background:var(--bbm)"></i>BBM<i style="background:var(--lst)"></i>Token listrik</p>
+<h3>Catatan terbaru</h3><div id="recent"></div></section>
+<section id="v-add" hidden><h3 style="margin-top:6px" id="ft">Catat pengeluaran</h3><form id="ef"><div class="seg"><button type="button" class="btn alt on b" data-t="bbm">⛽ BBM</button><button type="button" class="btn alt" data-t="listrik">⚡ Token listrik</button></div>
+<div class="two"><label>Tanggal<input type="date" id="fd" required></label><label>Total bayar (Rp)<input type="number" id="fc" min="1" inputmode="numeric" required></label></div>
+<div class="two"><label><span id="fal">Jumlah (liter)</span><input type="number" id="fa" min="0.01" step="any" inputmode="decimal" required></label><label id="fol">Odometer (km)<input type="number" id="fo" min="0" step="any" inputmode="decimal"></label></div>
+<label>Catatan (opsional)<input id="fn" maxlength="80"></label><p class="calc" id="calc"></p><button class="btn">Simpan</button> <button type="button" class="btn alt" id="cancel" hidden>Batal edit</button></form></section>
+<section id="v-rep" hidden><h3 style="margin-top:6px">Laporan pengeluaran</h3><div class="two"><label>Jenis<select id="rt"><option value="">Semua</option><option value="bbm">BBM</option><option value="listrik">Token listrik</option></select></label><label>Dari<input type="date" id="rf"></label></div><label>Sampai<input type="date" id="ru"></label>
+<p class="calc" id="rs"></p><div class="tw"><table id="tb"></table></div><button class="btn" id="xp">Export PDF</button> <button class="btn" id="xx" style="background:var(--lst)">Export Excel</button></section>
+</main></div>
+<nav><button data-v="dash" class="on">Dasbor</button><button data-v="add">Catat</button><button data-v="rep">Laporan</button></nav></div>
+<dialog id="dg"><h3 style="margin-top:0">Akun: <span id="dn"></span></h3><p class="calc" id="ds"></p>
+<h4>PIN</h4><label id="opl" hidden>PIN lama<input id="pold" type="password" inputmode="numeric" maxlength="6"></label><label>PIN baru (4–6 angka)<input id="pnew" type="password" inputmode="numeric" maxlength="6"></label><button class="btn" id="psave">Pasang PIN</button> <button class="btn alt" id="pdel" hidden>Hapus PIN</button>
+<h4>Backup dan restore</h4><button class="btn" id="bkb">Backup data (.json)</button><label>File backup<input type="file" id="rfile" accept=".json,application/json"></label><label>Mode restore<select id="rmode"><option value="merge">Gabungkan dengan data sekarang</option><option value="replace">Ganti semua data</option></select></label><button class="btn alt" id="rgo">Restore</button>
+<h4>Sesi</h4><button class="btn alt" id="lock">🔒 Kunci</button> <button class="btn alt" id="swit">Ganti pengguna</button> <button class="btn alt" id="dclose" style="float:right">Tutup</button></dialog>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rp=n=>'Rp'+Math.round(n).toLocaleString('id-ID'),f=(n,d=3)=>isFinite(n)?n.toLocaleString('id-ID',{maximumFractionDigits:d}):'–';
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=()=>{const d=new Date();return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+const db=new Promise((r,j)=>{const q=indexedDB.open('isiulang',1);q.onupgradeneeded=()=>{const d=q.result;d.createObjectStore('users',{keyPath:'name'});d.createObjectStore('entries',{keyPath:'id',autoIncrement:true}).createIndex('user','user')};q.onsuccess=()=>r(q.result);q.onerror=j});
+const tx=(s,m,fn)=>db.then(d=>new Promise((res,rej)=>{const t=d.transaction(s,m),r=fn(t.objectStore(s));t.oncomplete=()=>res(r.result);t.onerror=()=>rej(t.error)}));
+let user=localStorage.getItem('iu_user'),E=[],type='bbm',editId=null;
+const toast=m=>{const t=document.createElement('div');t.className='toast';t.textContent=m;(document.querySelector('dialog[open]')||document.body).append(t);setTimeout(()=>t.remove(),2200)};
+async function load(){E=(await tx('entries','readonly',o=>o.index('user').getAll(user))).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id)}
+async function enter(u){user=u;localStorage.setItem('iu_user',u);localStorage.setItem('iu_last',u);touch();$('#login').hidden=true;$('#app').hidden=false;$('#who').textContent=u;await load();render();setDef()}
+const H=async(p,t)=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t+p)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const mk=async p=>{const s=crypto.randomUUID();return{s,h:await H(p,s)}},chkPin=async(u,p)=>!!p&&await H(p,u.pin.s)===u.pin.h;
+const getU=n=>tx('users','readonly',o=>o.get(n)),putU=u=>tx('users','readwrite',o=>o.put(u)),okPin=p=>/^\d{4,6}$/.test(p);
+const touch=()=>localStorage.setItem('iu_t',Date.now()),LOCK=15*6e4,setErr=m=>$('#er').textContent=m||'';
+async function chips(){const us=await tx('users','readonly',o=>o.getAll());$('#rc').innerHTML=us.map(x=>`<button type="button" class="chip" data-u="${esc(x.name)}">${x.pin?'🔒 ':''}${esc(x.name)}</button>`).join('')}
+function lockUI(n){user=null;E=[];localStorage.removeItem('iu_user');$('#dg').open&&$('#dg').close();$('#app').hidden=true;$('#login').hidden=false;$('#un').value=n||'';$('#un').dispatchEvent(new Event('input'));$('#pn').value='';setErr();chips()}
+$('#un').oninput=async()=>{const x=await getU($('#un').value.trim().toLowerCase());$('#ph').textContent=x?(x.pin?'(wajib diisi)':'(akun ini belum ber-PIN)'):'(opsional untuk akun baru, 4–6 angka)'};
+$('#rc').onclick=e=>{const u=e.target.dataset.u;if(u){$('#un').value=u;$('#un').dispatchEvent(new Event('input'));$('#pn').focus()}};
+$('#lf').onsubmit=async e=>{e.preventDefault();setErr();const n=$('#un').value.trim().toLowerCase(),p=$('#pn').value;let u=await getU(n);
+if(u&&u.pin){if(!await chkPin(u,p))return setErr('PIN salah.')}else if(!u){if(p&&!okPin(p))return setErr('PIN harus 4–6 angka.');u={name:n,created:Date.now()};if(p)u.pin=await mk(p);await putU(u)}
+$('#pn').value='';enter(n)};
+$('#acc').onclick=async()=>{const u=await getU(user);$('#dn').textContent=user;$('#ds').textContent=u.pin?'PIN aktif. Sesi terkunci otomatis setelah 15 menit tidak aktif.':'Belum ada PIN. Pasang PIN agar data terkunci.';$('#opl').hidden=$('#pdel').hidden=!u.pin;$('#psave').textContent=u.pin?'Ubah PIN':'Pasang PIN';$('#pold').value=$('#pnew').value='';$('#dg').showModal()};
+$('#psave').onclick=async()=>{const u=await getU(user),p=$('#pnew').value;if(u.pin&&!await chkPin(u,$('#pold').value))return toast('PIN lama salah');if(!okPin(p))return toast('PIN baru harus 4–6 angka');u.pin=await mk(p);await putU(u);$('#dg').close();toast('PIN disimpan')};
+$('#pdel').onclick=async()=>{const u=await getU(user);if(!await chkPin(u,$('#pold').value))return toast('Isi PIN lama dengan benar');delete u.pin;await putU(u);$('#dg').close();toast('PIN dihapus')};
+$('#bkb').onclick=()=>{const b=new Blob([JSON.stringify({app:'myexpense',v:1,user,exported:new Date().toISOString(),entries:E.map(({id,user:_,...r})=>r)},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`backup-myexpense-${user}-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1e3);toast('Backup diunduh')};
+$('#rgo').onclick=async()=>{const fl=$('#rfile').files[0];if(!fl)return toast('Pilih file backup dulu');let j;try{j=JSON.parse(await fl.text())}catch{return toast('File bukan JSON yang valid')}
+if(!['myexpense','isi-ulang'].includes(j.app)||!Array.isArray(j.entries))return toast('Bukan file backup MyExpense');
+const ok=j.entries.filter(r=>(r.type=='bbm'||r.type=='listrik')&&/^\d{4}-\d{2}-\d{2}$/.test(r.date)&&r.cost>0&&r.amount>0).map(r=>({user,type:r.type,date:r.date,cost:+r.cost,amount:+r.amount,odo:+r.odo||0,note:String(r.note||'').slice(0,80)}));
+if(!ok.length)return toast('Tidak ada data valid di file');const rep=$('#rmode').value=='replace';if(rep&&!confirm('Semua data sekarang akan diganti. Lanjut?'))return;
+const key=r=>[r.type,r.date,r.cost,r.amount,r.odo].join('|'),have=new Set(rep?[]:E.map(key)),add=ok.filter(r=>{const k=key(r);if(have.has(k))return 0;have.add(k);return 1});
+await tx('entries','readwrite',o=>{if(rep)E.forEach(e=>o.delete(e.id));add.forEach(r=>o.add(r));return{}});await load();render();$('#dg').close();$('#rfile').value='';toast(add.length+' catatan dipulihkan')};
+$('#lock').onclick=()=>lockUI(user);$('#swit').onclick=()=>{localStorage.removeItem('iu_last');lockUI('')};$('#dclose').onclick=()=>$('#dg').close();
+['click','keydown'].forEach(t=>addEventListener(t,()=>{if(user)touch()}));
+document.addEventListener('visibilitychange',async()=>{if(document.hidden||!user)return;const u=await getU(user);if(u&&u.pin&&Date.now()-(+localStorage.getItem('iu_t')||0)>LOCK)lockUI(user)});
+$$('nav button').forEach(b=>b.onclick=()=>{$$('nav button').forEach(x=>x.classList.toggle('on',x===b));['dash','add','rep'].forEach(v=>$('#v-'+v).hidden=v!==b.dataset.v);scrollTo(0,0);render()});
+function stats(){const bb=E.filter(e=>e.type=='bbm'&&e.odo>0).sort((a,b)=>a.odo-b.odo);let L=0,K=0;for(let i=1;i<bb.length;i++){const d=bb[i].odo-bb[i-1].odo;if(d>0){L+=bb[i].amount;K+=d}}
+const ls=E.filter(e=>e.type=='listrik').sort((a,b)=>a.date.localeCompare(b.date));let pd=NaN;if(ls.length>1){const days=(new Date(ls.at(-1).date)-new Date(ls[0].date))/864e5;if(days>0)pd=ls.slice(0,-1).reduce((s,e)=>s+e.amount,0)/days}
+const m=today().slice(0,7),mo=E.filter(e=>e.date.startsWith(m));
+return{lpk:K?L/K:NaN,kmpl:K?K/L:NaN,pd,pm:pd*30.4,b:sum(mo,'bbm'),l:sum(mo,'listrik'),kw:mo.filter(e=>e.type=='listrik').reduce((s,e)=>s+e.amount,0)}}
+const sum=(a,t)=>a.filter(e=>e.type==t).reduce((s,e)=>s+e.cost,0);
+const gauge=(id,v,max)=>{$(id).style.strokeDashoffset=isFinite(v)?100-Math.min(100,v/max*100):100};
+function rowH(e){return`<div class="row"><i class="dot" style="background:var(--${e.type=='bbm'?'bbm':'lst'})"></i><div>${rp(e.cost)} · ${f(e.amount)} ${e.type=='bbm'?'L':'kWh'}<small>${e.date}${e.odo?' · '+f(e.odo,0)+' km':''}${e.note?' · '+esc(e.note):''}</small></div><div class="r"><button data-e="${e.id}">ubah</button><button data-d="${e.id}">hapus</button></div></div>`}
+function chart(){const ms=[];for(let i=5;i>=0;i--){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);ms.push(d.toISOString().slice(0,7))}
+const v=ms.map(m=>{const a=E.filter(e=>e.date.startsWith(m));return[m,sum(a,'bbm'),sum(a,'listrik')]});const mx=Math.max(1,...v.map(x=>x[1]+x[2]));
+$('#ch').innerHTML=`<svg viewBox="0 0 360 170">${v.map((x,i)=>{const h1=x[1]/mx*120,h2=x[2]/mx*120,X=14+i*58;return`<rect x="${X}" y="${130-h1}" width="34" height="${h1}" rx="3" fill="var(--bbm)"/><rect x="${X}" y="${130-h1-h2}" width="34" height="${h2}" rx="3" fill="var(--lst)"/><text x="${X+17}" y="150" text-anchor="middle" font-size="11" fill="var(--mut)">${new Date(x[0]+'-15').toLocaleDateString('id-ID',{month:'short'})}</text>${x[1]+x[2]?`<text x="${X+17}" y="${124-h1-h2}" text-anchor="middle" font-size="9" fill="var(--ink)">${f((x[1]+x[2])/1e3,0)}k</text>`:''}`}).join('')}</svg>`}
+function render(){const s=stats();$('#pt').textContent='Efisiensi '+new Date().toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+$('#g1').textContent=f(s.lpk);$('#g1b').textContent=isFinite(s.kmpl)?'≈ '+f(s.kmpl,1)+' km per liter':'butuh 2 catatan dengan odometer';gauge('#a1',s.lpk,.2);
+$('#g2').textContent=f(s.pd,2);$('#g2b').textContent=isFinite(s.pd)?'dari riwayat token':'butuh 2 pembelian token';gauge('#a2',s.pd,30);
+$('#m1').textContent=rp(s.b);$('#m2').textContent=rp(s.l);$('#m3').textContent=f(s.kw,1)+' kWh';$('#m4').textContent=isFinite(s.pm)?f(s.pm,1)+' kWh':'–';
+chart();$('#recent').innerHTML=E.length?E.slice(0,6).map(rowH).join(''):'<p class="empty">Belum ada catatan. Buka tab Catat dan masukkan pengisian pertamamu.</p>';
+if(!$('#v-rep').hidden)report()}
+const rd=()=>E.filter(e=>(!$('#rt').value||e.type==$('#rt').value)&&(!$('#rf').value||e.date>=$('#rf').value)&&(!$('#ru').value||e.date<=$('#ru').value));
+const rows=a=>a.map(e=>[e.date,e.type=='bbm'?'BBM':'Token listrik',e.cost,e.amount,e.type=='bbm'?'L':'kWh',e.cost/e.amount,e.odo||'',e.note||'']);
+const HD=['Tanggal','Jenis','Total (Rp)','Jumlah','Satuan','Harga/satuan (Rp)','Odometer (km)','Catatan'];
+function report(){const a=rd();$('#rs').textContent=`${a.length} catatan · total ${rp(a.reduce((s,e)=>s+e.cost,0))} · BBM ${f(a.filter(e=>e.type=='bbm').reduce((s,e)=>s+e.amount,0))} L · Listrik ${f(a.filter(e=>e.type=='listrik').reduce((s,e)=>s+e.amount,0))} kWh`;
+$('#tb').innerHTML='<tr>'+HD.map(h=>`<th>${h}</th>`).join('')+'</tr>'+rows(a).map(r=>'<tr>'+r.map((c,i)=>`<td>${i==2||i==5?f(c,0):i==3?f(c):esc(c)}</td>`).join('')+'</tr>').join('')}
+['#rt','#rf','#ru'].forEach(s=>$(s).onchange=report);
+$('#xp').onclick=()=>{if(!window.jspdf)return toast('Pustaka PDF belum termuat, coba online');const a=rd(),d=new jspdf.jsPDF({orientation:'landscape'});d.setFontSize(15);d.text('Laporan Pengeluaran BBM & Token Listrik – '+user,14,15);d.setFontSize(9);d.text(`Dicetak ${today()} · Total ${rp(a.reduce((s,e)=>s+e.cost,0))}`,14,21);d.autoTable({startY:26,head:[HD],body:rows(a).map(r=>r.map((c,i)=>i==2||i==5?f(c,0):i==3?f(c):c)),styles:{fontSize:8},headStyles:{fillColor:[13,34,51]}});d.save(`laporan-${user}-${today()}.pdf`)};
+$('#xx').onclick=()=>{if(!window.XLSX)return toast('Pustaka Excel belum termuat, coba online');const w=XLSX.utils.book_new();XLSX.utils.book_append_sheet(w,XLSX.utils.aoa_to_sheet([HD,...rows(rd())]),'Laporan');XLSX.writeFile(w,`laporan-${user}-${today()}.xlsx`)};
+function setType(t){type=t;$$('.seg button').forEach(b=>{const on=b.dataset.t==t;b.className='btn alt'+(on?' on '+(t=='bbm'?'b':'l'):'')});$('#fal').textContent=t=='bbm'?'Jumlah (liter)':'Jumlah (kWh)';$('#fol').hidden=t!='bbm'}
+$$('.seg button').forEach(b=>b.onclick=()=>setType(b.dataset.t));
+const setDef=()=>{$('#ef').reset();$('#fd').value=today();editId=null;$('#cancel').hidden=true;$('#ft').textContent='Catat pengeluaran';setType('bbm');calc()};
+function calc(){const c=+$('#fc').value,a=+$('#fa').value;$('#calc').textContent=c&&a?`Harga ≈ ${rp(c/a)} per ${type=='bbm'?'liter':'kWh'}`:''}
+['#fc','#fa'].forEach(s=>$(s).oninput=calc);$('#cancel').onclick=setDef;
+$('#ef').onsubmit=async e=>{e.preventDefault();const o={user,type,date:$('#fd').value,cost:+$('#fc').value,amount:+$('#fa').value,odo:type=='bbm'&&$('#fo').value?+$('#fo').value:0,note:$('#fn').value.trim()};if(editId)o.id=editId;await tx('entries','readwrite',s=>s.put(o));await load();toast(editId?'Perubahan disimpan':'Catatan disimpan');setDef();$('nav button').click()};
+document.addEventListener('click',async e=>{const t=e.target;if(t.dataset.d&&confirm('Hapus catatan ini?')){await tx('entries','readwrite',s=>s.delete(+t.dataset.d));await load();render();toast('Catatan dihapus')}
+if(t.dataset.e){const x=E.find(i=>i.id==t.dataset.e);$$('nav button')[1].click();setType(x.type);editId=x.id;$('#fd').value=x.date;$('#fc').value=x.cost;$('#fa').value=x.amount;$('#fo').value=x.odo||'';$('#fn').value=x.note||'';$('#cancel').hidden=false;$('#ft').textContent='Ubah catatan';calc()}});
+(async()=>{chips();const lu=localStorage.getItem('iu_last');if(user){const u=await getU(user),n=user;if(u&&u.pin&&Date.now()-(+localStorage.getItem('iu_t')||0)>LOCK)lockUI(n);else if(u)enter(n);else lockUI('')}else if(lu){$('#un').value=lu;$('#un').dispatchEvent(new Event('input'))}})();
+if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script></body></html>
