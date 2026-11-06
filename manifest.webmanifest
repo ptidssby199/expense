@@ -1,1 +1,1 @@
-{"name":"MyExpense – Catatan BBM & Token Listrik","short_name":"MyExpense","start_url":"./","scope":"./","display":"standalone","background_color":"#e8edf0","theme_color":"#0d2233","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
+{"id":"myexpense-app-v1","name":"MyExpense – Catatan BBM & Token Listrik","short_name":"MyExpense","start_url":"./","scope":"./","display":"standalone","background_color":"#e8edf0","theme_color":"#0d2233","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
