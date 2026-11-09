@@ -16,3 +16,7 @@ PWA statis (HTML/CSS/JS), data tersimpan lokal di IndexedDB per username. Export
 - PIN (4–6 angka) disimpan sebagai hash SHA-256 + salt di IndexedDB. Sesi terkunci otomatis setelah 15 menit tidak aktif.
 - Backup berupa file `.json` berisi catatan (tanpa PIN). Restore bisa *gabungkan* (duplikat dilewati) atau *ganti semua*.
 - Catatan: PIN hanya penghalang di sisi aplikasi, bukan enkripsi data.
+
+## Pembaruan
+- Login PIN memakai **numpad** di layar (juga bisa lewat keyboard fisik).
+- Jenis catatan ketiga: **Lainnya** (servis, parkir, tol, dll.) dengan catatan wajib; ikut tampil di dashboard, grafik, laporan PDF/Excel, dan backup.
